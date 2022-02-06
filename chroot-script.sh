@@ -13,11 +13,11 @@ fi
 
 echo $hostname >> /etc/hostname
 
-pacman -S grub efibootmgr os-prober vim
+pacman --no-confirm -S grub efibootmgr os-prober vim
 
 if [ $cpu ]
 then
-  pacman -S $cpu-ucode
+  pacman --no-confirm -S $cpu-ucode
 fi
 
 sed -i "/^#GRUB_DISABLE_OS_PROBER/ cGRUB_DISABLE_OS_PROBER=true" /etc/default/grub
