@@ -35,7 +35,5 @@ fi
 pacstrap /mnt base $kernel linux-firmware || exit
 timedatectl set-ntp true
 genfstab -U /mnt >> /mnt/etc/fstab
-curl -L https://raw.githubusercontent.com/miguelrcborges/archinstallscript/main/chroot-script.sh -O chroot-script.sh
+curl -L https://raw.githubusercontent.com/miguelrcborges/archinstallscript/main/chroot-script.sh -o /mnt/chroot-script.sh
 arch-chroot /mnt sh chroot-script.sh
-
-
