@@ -5,7 +5,6 @@ then
   mkfs.ext4 $root && mount $root /mnt && mkdir /mnt/boot || exit
 else
   echo "Root partition not added. Run 'export root=<partition>' and re-run the script afterwards."
-  umount /mnt
   exit
 fi
 
