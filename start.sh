@@ -6,6 +6,7 @@ then
   mount $root /mnt
 else
   echo "Root partition not added. Run 'export root=<partition>' and re-run the script afterwards."
+  umount /mnt
   exit
 fi
 
@@ -15,6 +16,7 @@ then
   mount $boot /mnt/boot
 else
   echo "Boot partition not added. Run 'export boot=<partition>' and re-run the script afterwards."
+  umount /mnt
   exit
 fi
 
