@@ -32,7 +32,7 @@ then
   kernel=linux
 fi
 
-pacstrap /mnt base $kernel linux-firmware || exit
+pacstrap /mnt base $kernel $kernel-headers linux-firmware || exit
 timedatectl set-ntp true
 genfstab -U /mnt >> /mnt/etc/fstab
 curl -L https://raw.githubusercontent.com/miguelrcborges/archinstallscript/main/chroot-script.sh -o /mnt/chroot-script.sh
