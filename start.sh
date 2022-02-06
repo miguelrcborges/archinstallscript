@@ -2,7 +2,7 @@
 
 if [ $root ]
 then
-  mkfs.ext4 $root && mount $root /mnt || exit
+  mkfs.ext4 $root && mount $root /mnt && mkdir /mnt/boot || exit
 else
   echo "Root partition not added. Run 'export root=<partition>' and re-run the script afterwards."
   umount /mnt
@@ -11,7 +11,7 @@ fi
 
 if [ $boot ]
 then
-  mkfs.fat -F32 $boot && mkdir /mnt/boot && mount $boot /mnt/boot || umount /mnt && exit
+  mkfs.fat -F32 $boot && mount $boot /mnt/boot || umount /mnt && exit
 else
   echo "Boot partition not added. Run 'export boot=<partition>' and re-run the script afterwards."
   umount /mnt
