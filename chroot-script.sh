@@ -34,4 +34,4 @@ then
   rootpw="root"
 fi
 
-echo "root:$rootwd" | chpasswd
+echo "root:$rootpw" | chpasswd
