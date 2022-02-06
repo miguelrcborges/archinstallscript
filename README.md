@@ -14,7 +14,7 @@ Optional but recommended
 - timezone: do ```ls /usr/share/zoneinfo``` to get available regions and ```ls /usr/share/zoneinfo/<Region>``` to get available citys. The format should be Region/City. Defauls to "Europe/Lisbon"
 - rootpw: root user password. Defaults to "root"
 
-Optinal
+Optional
 - swap: swap partition
 - home: home partition
 - kernel: eg. linux-zen
