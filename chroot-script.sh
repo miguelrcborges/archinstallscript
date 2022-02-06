@@ -13,7 +13,7 @@ fi
 
 echo $hostname >> /etc/hostname
 
-pacman --noconfirm -S grub efibootmgr os-prober vim
+pacman --noconfirm -S grub efibootmgr os-prober vim networkmanager
 
 if [ $cpu ]
 then
