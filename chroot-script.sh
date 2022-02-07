@@ -71,7 +71,7 @@ if [ $installtype == "desktop" ]
 then
   case $desktop in
     kde)
-      pacman -S --noconfirm plasma
+      pacman -S --noconfirm plasma konsole dolphin
       systemctl enable sddm
       ;;
     
