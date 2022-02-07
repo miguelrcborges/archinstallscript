@@ -6,7 +6,7 @@ then
   exit
 fi
 
-if ! [ %userpw ]
+if ! [ $userpw ]
 then
   echo "Add a password for your user before running this script!"
   exit
