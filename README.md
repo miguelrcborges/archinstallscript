@@ -14,7 +14,7 @@ Optional but recommended
 - cpu: set it either to amd or to intel. It is used to install the microcodes.
 - timezone: do ```ls /usr/share/zoneinfo``` to get available regions and ```ls /usr/share/zoneinfo/<Region>``` to get available citys. The format should be Region/City. Defauls to "Europe/Lisbon"
 - rootpw: root user password. Defaults to "root"
-- installtype: One of these values: minimal (only installs base arch and creates new user), autorice (instals my rice), desktop. Defaults to minimal.
+- installtype: One of these values: minimal (only installs base arch and creates new user), autorice (installs my rice), desktop. Defaults to minimal.
 - desktop: Choose the Desktop Environment you want between gnome, kde and xfce. Defaults to gnome. *Only if desktop is selected*
 - username: Username for the user account. Defaults to "user"
 - userpw: Password for the user account. Defaults to "user"
