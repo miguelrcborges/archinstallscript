@@ -72,8 +72,8 @@ then
       ;;
     
     xfce)
-      pacman -S --noconfirm xfce4 xfce4-goodies lightdm lightdm-gtk-greeter
-      systemctl enable lightdm
+      pacman -S --noconfirm xfce4 xfce4-goodies sddm
+      systemctl enable sddm
       ;;
     
     *)
