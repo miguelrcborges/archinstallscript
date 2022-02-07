@@ -47,7 +47,7 @@ fi
 echo "root:$rootpw" | chpasswd
 useradd -mg wheel $username
 echo "$username:$userpw" | chpasswd
-sed -i "/^# %wheel ALL=(ALL) ALL/ c%wheel ALL=(ALL) ALL" /etc/sudoers.d
+sed -i "/^# %wheel ALL=(ALL:ALL) ALL/ c%wheel ALL=(ALL:ALL) ALL" /etc/sudoers
 
 if ! [ $installtype ] || [ $installtype == "minimal" ]
 then
@@ -55,7 +55,11 @@ then
 fi
 
 sudo sed -i "/\[multilib\]/,/Include/"'s/^#//' /etc/pacman.conf
-pacman -Sy --noconfirm xorg xf86-video-amdgpu xf86-video-intel xf86-video-nouveau lib32-mesa noto-fonts noto-fonts-cjk noto-fons-emojis noto-fonts-extra
+pacman -Sy --noconfirm xorg xf86-video-amdgpu xf86-video-intel xf86-video-nouveau lib32-mesa noto-fonts noto-fonts-cjk noto-fons-emojis noto-fonts-extra pulseaudio pulseaudio-alsa
+sed -i "/^; default-sample-format/ cdefault-sample-format = float32le" /etc/sudoers
+sed -i "/^; default-sample-rate/ cdefault-sample-rate = 48000" /etc/sudoers
+sed -i "/^; alternate-sample-rate / calternate-sample-rate = 44100" /etc/sudoers
+sed -i "/^; resample-method/ cresample-method = speex-float-3" /etc/sudoers
 
 if [ $installtype == "autorice" ]
 then
