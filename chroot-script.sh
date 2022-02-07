@@ -55,7 +55,7 @@ then
 fi
 
 sudo sed -i "/\[multilib\]/,/Include/"'s/^#//' /etc/pacman.conf
-pacman -S --noconfirm xorg xf86-video-amdgpu xf86-video-intel xf86-video-nouveau lib32-mesa noto-fonts noto-fonts-cjk noto-fons-emojis noto-fonts-extra
+pacman -Sy --noconfirm xorg xf86-video-amdgpu xf86-video-intel xf86-video-nouveau lib32-mesa noto-fonts noto-fonts-cjk noto-fons-emojis noto-fonts-extra
 
 if [ $installtype == "autorice" ]
 then
