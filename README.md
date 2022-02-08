@@ -18,6 +18,7 @@ Optional but recommended
 - desktop: Choose the Desktop Environment you want between gnome, kde and xfce. Defaults to gnome. *Only if desktop is selected*
 - username: Username for the user account. Defaults to "user"
 - userpw: Password for the user account. Defaults to "user"
+- winefi: Windows EFI partition to be detected by grub
 
 Optional
 - swap: swap partition
