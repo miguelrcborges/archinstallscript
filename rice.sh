@@ -10,7 +10,7 @@ then
   userpw=user
 fi
 
-pacman -S xorg-xrandr xorg-xinit feh alacritty sxhkd bspwm python-pywal dash zsh git zsh-syntax-highlighting
+pacman -S xorg-xrandr xorg-xinit feh alacritty sxhkd bspwm python-pywal dash zsh git zsh-syntax-highlighting xorg-xsetroot
 su $username -c "chsh -s /bin/zsh && systemctl --user enable pulseaudio"
 git clone https://github.com/miguelrcborges/archinstallscript.git
 mv archinstallscript/autorice/* /home/$username/
