@@ -1,3 +1,17 @@
 #!/bin/bash
 
-sudo pacman -S xorg-xrandr xorg-xinit alacritty sxhkd bspwm python-pywal
+if [ $username ]
+then
+  username=user
+fi
+
+if [ $userpw ]
+then
+  userpw=user
+fi
+
+pacman -S xorg-xrandr xorg-xinit feh alacritty sxhkd bspwm python-pywal dash zsh git zsh-syntax-highlighting
+su $username -c "chsh -s /bin/zsh && systemctl --user enable pulseaudio"
+git clone https://github.com/miguelrcborges/archinstallscript.git
+mv archinstallscript/autorice/* /home/$username/
+rm -rf archinstallscript
