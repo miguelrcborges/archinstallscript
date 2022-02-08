@@ -88,8 +88,8 @@ then
       ;;
     
     xfce)
-      pacman -S --noconfirm xfce4 xfce4-goodies sddm
-      systemctl enable sddm
+      pacman -S --noconfirm xfce4 xfce4-goodies lxdm
+      systemctl enable lxdm
       ;;
     
     *)
