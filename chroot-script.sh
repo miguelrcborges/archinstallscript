@@ -19,7 +19,7 @@ fi
 echo $hostname >> /etc/hostname
 
 
-pacman --noconfirm -S grub efibootmgr os-prober vim networkmanager base-devel
+pacman --noconfirm -S grub efibootmgr os-prober neovim networkmanager base-devel
 
 if [ $cpu ]
 then
