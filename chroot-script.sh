@@ -26,10 +26,22 @@ then
   pacman --noconfirm -S $cpu-ucode
 fi
 
+if [ $winefi ]
+then
+  mkdir /mnt2
+  mount $winefi /mnt2
+fi
+
 sed -i "/^#GRUB_DISABLE_OS_PROBER/ cGRUB_DISABLE_OS_PROBER=false" /etc/default/grub
 grub-install --target=x86_64-efi --efi-directory=/boot/ --bootloader-id=GRUB
 grub-mkconfig -o /boot/grub/grub.cfg
 systemctl enable NetworkManager
+
+if [ $winefi ]
+then
+  umount $winefi
+  rm -rf /mnt2
+fi
 
 if ! [ $rootpw ]
 then
