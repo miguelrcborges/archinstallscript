@@ -68,7 +68,7 @@ fi
 
 sudo sed -i "/\[multilib\]/,/Include/"'s/^#//' /etc/pacman.conf
 pacman -Sy
-pacman --noconfirm -S xorg xf86-video-amdgpu xf86-video-intel xf86-video-nouveau lib32-mesa noto-fonts noto-fonts-cjk noto-fons-emoji noto-fonts-extra pulseaudio pulseaudio-alsa
+pacman --noconfirm -S xorg xf86-video-amdgpu xf86-video-intel xf86-video-nouveau lib32-mesa noto-fonts noto-fonts-cjk noto-fonts-emoji noto-fonts-extra pulseaudio pulseaudio-alsa
 sed -i "/^; default-sample-format/ cdefault-sample-format = float32le" /etc/pulse/daemon.conf
 sed -i "/^; default-sample-rate/ cdefault-sample-rate = 48000" /etc/pulse/daemon.conf
 sed -i "/^; alternate-sample-rate / calternate-sample-rate = 44100" /etc/pulse/daemon.conf
