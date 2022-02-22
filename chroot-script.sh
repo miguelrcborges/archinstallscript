@@ -20,7 +20,7 @@ echo $hostname >> /etc/hostname
 
 if ! [ $editor ]
 then
-  editor="nvim"
+  editor="neovim"
 fi
 
 pacman --noconfirm -S grub efibootmgr os-prober $editor networkmanager base-devel
