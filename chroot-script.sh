@@ -89,6 +89,7 @@ case $gpu in
   
   *)
     pacman -S --noconfirm xf86-video-amdgpu xf86-video-intel xf86-video-nouveau
+    ;;
 
 sed -i "/^; default-sample-format/ cdefault-sample-format = float32le" /etc/pulse/daemon.conf
 sed -i "/^; default-sample-rate/ cdefault-sample-rate = 48000" /etc/pulse/daemon.conf
