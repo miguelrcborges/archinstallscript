@@ -12,6 +12,7 @@ This variables must be exported
 
 Optional but recommended
 - cpu: set it either to amd or to intel. It is used to install the microcodes.
+- gpu: if unselected, installs the base drivers. Select it to nvidia, amd or intel.
 - timezone: do ```ls /usr/share/zoneinfo``` to get available regions and ```ls /usr/share/zoneinfo/<Region>``` to get available citys. The format should be Region/City. Defauls to "Europe/Lisbon"
 - rootpw: root user password. Defaults to "root"
 - installtype: One of these values: minimal (only installs base arch and creates new user), autorice (installs my rice (its broke atm)), desktop. Defaults to minimal.
@@ -21,6 +22,7 @@ Optional but recommended
 - winefi: Windows EFI partition to be detected by grub
 
 Optional
+- editor: either nvim, vim or nano. Defaults to nvim.
 - swap: swap partition
 - home: home partition
 - kernel: eg. linux-zen
