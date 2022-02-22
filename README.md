@@ -22,7 +22,7 @@ Optional but recommended
 - winefi: Windows EFI partition to be detected by grub
 
 Optional
-- editor: either nvim, vim or nano. Defaults to nvim.
+- editor: either neovim, vim or nano. Defaults to nvim.
 - swap: swap partition
 - home: home partition
 - kernel: eg. linux-zen
