@@ -18,8 +18,12 @@ fi
 
 echo $hostname >> /etc/hostname
 
+if ! [ $editor ]
+then
+  editor="nvim"
+fi
 
-pacman --noconfirm -S grub efibootmgr os-prober neovim networkmanager base-devel
+pacman --noconfirm -S grub efibootmgr os-prober $editor networkmanager base-devel
 
 if [ $cpu ]
 then
@@ -68,7 +72,24 @@ fi
 
 sudo sed -i "/\[multilib\]/,/Include/"'s/^#//' /etc/pacman.conf
 pacman -Sy
-pacman --noconfirm -S xorg xf86-video-amdgpu xf86-video-intel xf86-video-nouveau lib32-mesa noto-fonts noto-fonts-cjk noto-fonts-emoji noto-fonts-extra pulseaudio pulseaudio-alsa
+pacman --noconfirm -S xorg lib32-mesa noto-fonts noto-fonts-cjk noto-fonts-emoji noto-fonts-extra pulseaudio pulseaudio-alsa
+
+case $gpu in 
+  nvidia)
+    pacman -S --noconfirm --needed lib32-libglvnd lib32-nvidia-utils lib32-vulkan-icd-loader libglvnd nvidia-dkms nvidia-settings vulkan-icd-loader
+    ;;
+    
+  amd)
+    pacman -S --noconfirm --needed gamescope lib32-vulkan-icd-loader lib32-vulkan-radeon vulkan-icd-loader vulkan-radeon
+    ;;
+  
+  intel)
+    pacman -S --noconfirm --needed gamescope lib32-vulkan-icd-loader lib32-vulkan-intel vulkan-icd-loader vulkan-intel
+    ;;
+  
+  *)
+    pacman -S --noconfirm xf86-video-amdgpu xf86-video-intel xf86-video-nouveau
+
 sed -i "/^; default-sample-format/ cdefault-sample-format = float32le" /etc/pulse/daemon.conf
 sed -i "/^; default-sample-rate/ cdefault-sample-rate = 48000" /etc/pulse/daemon.conf
 sed -i "/^; alternate-sample-rate / calternate-sample-rate = 44100" /etc/pulse/daemon.conf
