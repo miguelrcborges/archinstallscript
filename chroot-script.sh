@@ -80,11 +80,11 @@ case $gpu in
     ;;
     
   amd)
-    pacman -S --noconfirm --needed gamescope lib32-vulkan-icd-loader lib32-vulkan-radeon vulkan-icd-loader vulkan-radeon
+    pacman -S --noconfirm --needed xf86-video-amdgpu mesa lib32-mesa gamescope lib32-vulkan-icd-loader lib32-vulkan-radeon vulkan-icd-loader vulkan-radeon
     ;;
   
   intel)
-    pacman -S --noconfirm --needed gamescope lib32-vulkan-icd-loader lib32-vulkan-intel vulkan-icd-loader vulkan-intel
+    pacman -S --noconfirm --needed mesa lib32-mesa gamescope lib32-vulkan-icd-loader lib32-vulkan-intel vulkan-icd-loader vulkan-intel
     ;;
   
   *)
@@ -95,6 +95,8 @@ sed -i "/^; default-sample-format/ cdefault-sample-format = float32le" /etc/puls
 sed -i "/^; default-sample-rate/ cdefault-sample-rate = 48000" /etc/pulse/daemon.conf
 sed -i "/^; alternate-sample-rate / calternate-sample-rate = 44100" /etc/pulse/daemon.conf
 sed -i "/^; resample-method/ cresample-method = speex-float-3" /etc/pulse/daemon.conf
+
+su $user -c "cd && echo $userpw | sudo --stdin pacman -Syu && git clone https://aur.archlinux.org/yay.git && cd yay && makepkg -si --noconfirm && cd .. && rm -rf yay"
 
 if [ $installtype == "autorice" ]
 then
