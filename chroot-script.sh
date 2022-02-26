@@ -102,7 +102,8 @@ su $user -c "cd && git clone https://aur.archlinux.org/yay.git && cd yay && make
 cd /home/$user/yay
 pacman -U $(ls | grep "\.pkg.tar.zst") --noconfirm
 pacman -Rs --noconfirm go 
-
+cd ..
+rm -rf yay
 
 if [ $installtype == "autorice" ]
 then
