@@ -23,7 +23,7 @@ then
   editor="neovim"
 fi
 
-pacman --noconfirm -S grub efibootmgr os-prober $editor networkmanager base-devel git
+pacman --noconfirm -Sy grub efibootmgr os-prober $editor networkmanager base-devel git
 
 if [ $cpu ]
 then
