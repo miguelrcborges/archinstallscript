@@ -97,7 +97,12 @@ sed -i "/^; default-sample-rate/ cdefault-sample-rate = 48000" /etc/pulse/daemon
 sed -i "/^; alternate-sample-rate / calternate-sample-rate = 44100" /etc/pulse/daemon.conf
 sed -i "/^; resample-method/ cresample-method = speex-float-3" /etc/pulse/daemon.conf
 
-su $user -c "cd && sudo pacman -S --noconfirm go && git clone https://aur.archlinux.org/yay.git && cd yay && makepkg -S && echo $userpw | sudo --stdin pacman -U --noconfirm && cd .. && rm -rf yay && sudo pacman -Rs go"
+pacman -S --noconfirm go
+su $user -c "cd && git clone https://aur.archlinux.org/yay.git && cd yay && makepkg"
+cd /home/$user/yay
+pacman -U $(ls | grep "\.pkg.tar.zst") --noconfirm
+pacman -Rs --noconfirm go 
+
 
 if [ $installtype == "autorice" ]
 then
