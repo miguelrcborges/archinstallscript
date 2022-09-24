@@ -23,29 +23,83 @@ then
   editor="neovim"
 fi
 
-pacman --noconfirm -Sy grub efibootmgr os-prober $editor networkmanager base-devel git
+pacman --noconfirm -Sy efibootmgr $editor networkmanager base-devel git
+
+
+
 
 if [ $cpu ]
 then
   pacman --noconfirm -S $cpu-ucode
 fi
 
-if [ $winefi ]
-then
-  mkdir /mnt2
-  mount $winefi /mnt2
-fi
+bootctl install
 
-sed -i "/^#GRUB_DISABLE_OS_PROBER/ cGRUB_DISABLE_OS_PROBER=false" /etc/default/grub
-grub-install --target=x86_64-efi --efi-directory=/boot/ --bootloader-id=GRUB
-grub-mkconfig -o /boot/grub/grub.cfg
+echo "default  arch.conf 
+timeout  4 
+console-mode max 
+editor  no" > /boot/loader/loader.conf
+ 
+echo "title  Arch Linux 
+linux  /vmlinuz-$kernel" > /boot/loader/entries/arch.conf
+if [ $cpu ]
+then
+  echo "initrd  /$cpu-ucode.img" >> /boot/loader/entries/arch.conf
+fi
+echo "initrd  /initramfs-$kernel.img
+options  root=PART$(cat /etc/fstab | grep 'UUID' | head -n 1 - | awk '{print $1}') rw" >> /boot/loader/entries/arch.conf
+ 
+if [ "$gpu" == "nvidia" ]
+then
+  echo "options  mitigations=off nvidia-drm.modeset=1" >> /boot/loader/entries/arch.conf
+else
+  echo "options  mitifations=off nvidia-drm.modeset=1" >> /boot/loader/entries/arch.conf
+fi
+ 
+ 
+echo "title  Arch Linux Fallback 
+linux  /vmlinuz-$kernel" > /boot/loader/entries/arch-fallback.conf
+if [ $cpu ]
+then
+  echo "initrd  /$cpu-ucode.img" >> /boot/loader/entries/arch-fallback.conf
+fi
+echo "initrd  /initramfs-$kernel-fallback.img
+options  root=PART$(cat /etc/fstab | grep 'UUID' | head -n 1 - | awk '{print $1}') rw" >> /boot/loader/entries/arch-fallback.conf
+ 
+if [ "$gpu" == "nvidia" ]
+then
+  echo "options  mitigations=off nvidia-drm.modeset=1" >> /boot/loader/entries/arch-fallback.conf
+else
+  echo "options  mitifations=off nvidia-drm.modeset=1" >> /boot/loader/entries/arch-fallback.conf
+fi
 systemctl enable NetworkManager
 
-if [ $winefi ]
-then
-  umount $winefi
-  rm -rf /mnt2
-fi
+"[Trigger]
+Type = Package
+Operation = Upgrade
+Target = systemd
+
+[Action]
+Description = Gracefully upgrading systemd-boot...
+When = PostTransaction
+Exec = /usr/bin/systemctl restart systemd-boot-update.service" > /etc/pacman.d/hooks/100-systemd-boot.hook
+
+"[Trigger]
+Operation = Install
+Operation = Upgrade
+Type = Package
+Target = linux
+Target = systemd
+
+[Action]
+Description = Signing Kernel for Secure Boot
+When = PostTransaction
+Exec = /usr/bin/find /boot -type f ( -name vmlinuz-* -o -name systemd* ) -exec /usr/bin/sh -c 'if ! /usr/bin/sbverify --list {} 2>/dev/null | /usr/bin/grep -q "signature certificates"; then /usr/bin/sbsign --key db.key --cert db.crt --output "$1" "$1"; fi' _ {} ;
+Depends = sbsigntools
+Depends = findutils
+Depends = grep" > /etc/pacman.d/hooks/99-secureboot.hook
+
+
 
 if ! [ $rootpw ]
 then
