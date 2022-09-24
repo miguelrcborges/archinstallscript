@@ -38,7 +38,7 @@ bootctl install
 echo "default  arch.conf 
 timeout  4 
 console-mode max 
-editor  no" > /boot/loader/loader.conf
+editor  yes" > /boot/loader/loader.conf
  
 echo "title  Arch Linux 
 linux  /vmlinuz-$kernel" > /boot/loader/entries/arch.conf
@@ -88,7 +88,7 @@ Exec = /usr/bin/systemctl restart systemd-boot-update.service" > /etc/pacman.d/h
 Operation = Install
 Operation = Upgrade
 Type = Package
-Target = linux
+Target = $kernel
 Target = systemd
 
 [Action]
