@@ -29,7 +29,7 @@ fi
 
 if ! [ $kernel ]
 then
-  kernel=linux
+  export kernel=linux
 fi
 
 pacstrap /mnt base $kernel $kernel-headers linux-firmware || exit
