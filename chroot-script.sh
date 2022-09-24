@@ -92,30 +92,12 @@ case $gpu in
     ;;
 esac
 
-sed -i "/^; default-sample-format/ cdefault-sample-format = float32le" /etc/pulse/daemon.conf
-sed -i "/^; default-sample-rate/ cdefault-sample-rate = 48000" /etc/pulse/daemon.conf
-sed -i "/^; alternate-sample-rate / calternate-sample-rate = 44100" /etc/pulse/daemon.conf
-sed -i "/^; resample-method/ cresample-method = speex-float-3" /etc/pulse/daemon.conf
-
-pacman -S --noconfirm go
-su $user -c "cd && git clone https://aur.archlinux.org/yay.git && cd yay && makepkg"
-cd /home/$user/yay
-pacman -U $(ls | grep "\.pkg.tar.zst") --noconfirm
-pacman -Rs --noconfirm go 
-cd ..
-rm -rf yay
-
-if [ $installtype == "autorice" ]
-then
-  curl -L https://raw.githubusercontent.com/miguelrcborges/archinstallscript/main/rice.sh -s | sh
-  exit
-fi
 
 if [ $installtype == "desktop" ]
 then
   case $desktop in
     kde)
-      pacman -S --noconfirm plasma konsole dolphin
+      pacman -S --noconfirm plasma-pa xdg-desktop-portal-kde kscreen kde-gtk-config breeze-gtk kdeplasma-addons ark sddm konsole dolphin
       systemctl enable sddm
       ;;
     
@@ -125,7 +107,7 @@ then
       ;;
     
     *)
-      pacman -S --noconfirm gnome
+      pacman -S --noconfirm mutter gnome-shell gnome-session nautilus gnome-control-center gnome-tweaks xdg-desktop-portal-gnome
       systemctl enable gdm
       ;;
   esac
