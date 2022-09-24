@@ -97,7 +97,7 @@ if [ $installtype == "desktop" ]
 then
   case $desktop in
     kde)
-      pacman -S --noconfirm plasma-pa xdg-desktop-portal-kde kscreen kde-gtk-config breeze-gtk kdeplasma-addons ark sddm konsole dolphin
+      pacman -S --noconfirm plasma-pa xdg-desktop-portal-kde kscreen kde-gtk-config breeze-gtk kdeplasma-addons ark sddm konsole dolphin systemsettings
       systemctl enable sddm
       ;;
     
