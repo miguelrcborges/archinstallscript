@@ -107,7 +107,7 @@ then
       ;;
     
     *)
-      pacman -S --noconfirm mutter gnome-shell gnome-session nautilus gnome-control-center gnome-tweaks xdg-desktop-portal-gnome gdm
+      pacman -S --noconfirm mutter gnome-shell gnome-session nautilus gnome-control-center gnome-tweaks xdg-desktop-portal-gnome gdm gnome-terminal
       systemctl enable gdm
       ;;
   esac
