@@ -53,7 +53,7 @@ if [ "$gpu" == "nvidia" ]
 then
   echo "options  mitigations=off nvidia-drm.modeset=1" >> /boot/loader/entries/arch.conf
 else
-  echo "options  mitifations=off nvidia-drm.modeset=1" >> /boot/loader/entries/arch.conf
+  echo "options  mitigations=off" >> /boot/loader/entries/arch.conf
 fi
  
  
@@ -70,7 +70,7 @@ if [ "$gpu" == "nvidia" ]
 then
   echo "options  mitigations=off nvidia-drm.modeset=1" >> /boot/loader/entries/arch-fallback.conf
 else
-  echo "options  mitifations=off nvidia-drm.modeset=1" >> /boot/loader/entries/arch-fallback.conf
+  echo "options  mitigations=off" >> /boot/loader/entries/arch-fallback.conf
 fi
 systemctl enable NetworkManager
 
