@@ -162,7 +162,7 @@ then
       ;;
     
     *)
-      pacman -S --noconfirm mutter gnome-shell gnome-session nautilus gnome-control-center gnome-tweaks xdg-desktop-portal-gnome gdm gnome-terminal
+      pacman -S --noconfirm mutter gnome-shell gnome-session nautilus gnome-control-center gnome-tweaks xdg-desktop-portal-gnome gdm gnome-terminal kinit
       systemctl enable gdm
       ;;
   esac
