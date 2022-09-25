@@ -2,7 +2,7 @@
 
 if [ $root ]
 then
-  mkfs.xfs $root || exit && mount $root /mnt && mkdir /mnt/boot 
+  mkfs.xfs -f $root || exit && mount $root /mnt && mkdir /mnt/boot 
 else
   echo "Root partition not added. Read the README of the github repo."
   exit
