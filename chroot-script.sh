@@ -135,11 +135,11 @@ case $gpu in
     ;;
     
   amd)
-    pacman -S --noconfirm --needed xf86-video-amdgpu mesa lib32-mesa gamescope lib32-vulkan-icd-loader lib32-vulkan-radeon vulkan-icd-loader vulkan-radeon
+    pacman -S --noconfirm --needed xf86-video-amdgpu mesa lib32-mesa lib32-vulkan-icd-loader lib32-vulkan-radeon vulkan-icd-loader vulkan-radeon
     ;;
   
   intel)
-    pacman -S --noconfirm --needed mesa lib32-mesa gamescope lib32-vulkan-icd-loader lib32-vulkan-intel vulkan-icd-loader vulkan-intel
+    pacman -S --noconfirm --needed xf86-video-intel mesa lib32-mesa lib32-vulkan-icd-loader lib32-vulkan-intel vulkan-icd-loader vulkan-intel
     ;;
   
   *)
