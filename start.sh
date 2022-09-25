@@ -24,7 +24,7 @@ fi
 
 if [ $home ]
 then
-  mkfs.xfs $home || exit && mount $home /mnt/home
+  mkfs.xfs -f $home || exit && mount $home /mnt/home
 fi
 
 if ! [ $kernel ]
