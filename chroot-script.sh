@@ -48,7 +48,7 @@ then
   echo "initrd  /$cpu-ucode.img" >> /boot/loader/entries/arch.conf
 fi
 echo "initrd  /initramfs-$kernel.img
-options  root=PART$(cat /etc/fstab | grep 'UUID' | head -n 1 - | awk '{print $1}') rw" >> /boot/loader/entries/arch.conf
+options  root=$(cat /etc/fstab | grep 'UUID' | head -n 1 - | awk '{print $1}') rw" >> /boot/loader/entries/arch.conf
  
 if [ "$gpu" == "nvidia" ]
 then
