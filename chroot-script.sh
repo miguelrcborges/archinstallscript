@@ -152,7 +152,7 @@ if [ $installtype == "desktop" ]
 then
   case $desktop in
     kde)
-      pacman -S --noconfirm plasma-pa plasma-nm xdg-desktop-portal-kde kscreen kde-gtk-config breeze-gtk kdeplasma-addons ark sddm konsole dolphin systemsettings plasma-desktop plasma-workspace
+      pacman -S --noconfirm plasma-pa plasma-nm xdg-desktop-portal-kde kscreen kde-gtk-config breeze-gtk kdeplasma-addons ark sddm konsole dolphin systemsettings plasma-desktop plasma-workspace kinit
       systemctl enable sddm
       ;;
     
@@ -162,7 +162,7 @@ then
       ;;
     
     *)
-      pacman -S --noconfirm mutter gnome-shell gnome-session nautilus gnome-control-center gnome-tweaks xdg-desktop-portal-gnome gdm gnome-terminal kinit
+      pacman -S --noconfirm mutter gnome-shell gnome-session nautilus gnome-control-center gnome-tweaks xdg-desktop-portal-gnome gdm gnome-terminal 
       systemctl enable gdm
       ;;
   esac
