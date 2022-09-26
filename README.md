@@ -19,7 +19,7 @@ Optional but recommended
 - desktop: Choose the Desktop Environment you want between gnome, kde and xfce. Defaults to gnome. *Only if installtype is set as desktop*
 - username: Username for the user account. Defaults to "user"
 - userpw: Password for the user account. Defaults to "user"
-~~- winefi: Windows EFI partition to be detected by grub~~ Moved to systemd-boot. The automatation of adding windows boot manager entry to the bootloader hasn't been done yet, but can be done checking [this](https://wiki.archlinux.org/title/systemd-boot#Boot_from_another_disk). You can also just change boot order on UEFI.
+- ~~winefi: Windows EFI partition to be detected by grub~~ Moved to systemd-boot. The automatation of adding windows boot manager entry to the bootloader hasn't been done yet, but can be done checking [this](https://wiki.archlinux.org/title/systemd-boot#Boot_from_another_disk). You can also just change boot order on UEFI.
 
 Optional
 - editor: either neovim, vim or nano. Defaults to nvim.
