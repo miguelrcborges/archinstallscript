@@ -17,7 +17,8 @@ Optional but recommended
 - rootpw: root user password. Defaults to "root"
 - installtype: One of these values: minimal (only installs base arch and creates new user) and desktop. Defaults to minimal.
 - desktop: Choose the Desktop Environment you want between gnome, kde and xfce. Defaults to gnome. *Only if installtype is set as desktop*
-- username: Username for the user account. Defaults to "user"
+- username: Username for the user account. Defaults to "user".
+  - NOTE: Don't use uppercase letters. They aren't supported on linux usernames and it will fail to create your user.
 - userpw: Password for the user account. Defaults to "user"
 - ~~winefi: Windows EFI partition to be detected by grub~~ Moved to systemd-boot. The automatation of adding windows boot manager entry to the bootloader hasn't been done yet, but can be done checking [this](https://wiki.archlinux.org/title/systemd-boot#Boot_from_another_disk). You can also just change boot order on UEFI.
 
