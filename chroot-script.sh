@@ -28,6 +28,13 @@ pacman --noconfirm -Sy efibootmgr $editor networkmanager base-devel git
 
 
 
+if [ grep 'AuthenticAMD' </proc/cpuinfo | head -n 1 ]
+then
+  cpu=amd
+elif [ grep 'GenuineIntel' </proc/cpuinfo | head -n 1 ]
+then
+  cpu=intel
+fi
 if [ $cpu ]
 then
   pacman --noconfirm -S $cpu-ucode
