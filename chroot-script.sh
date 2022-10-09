@@ -127,6 +127,9 @@ useradd -mg wheel $username
 echo "$username:$userpw" | chpasswd
 sed -i "/^# %wheel ALL=(ALL:ALL) ALL/ c%wheel ALL=(ALL:ALL) ALL" /etc/sudoers
 
+sed -i "/^#Color/cColor" /etc/pacman.conf
+sed -i "/^#ParallelDownloads/cParallelDownloads = 5" /etc/pacman.conf
+
 if ! [ $installtype ] || [ $installtype == "minimal" ]
 then
   exit
