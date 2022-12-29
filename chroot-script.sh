@@ -137,7 +137,7 @@ fi
 
 sudo sed -i "/\[multilib\]/,/Include/"'s/^#//' /etc/pacman.conf
 pacman -Sy
-pacman --noconfirm -S xorg lib32-mesa noto-fonts noto-fonts-cjk noto-fonts-emoji noto-fonts-extra pipewire lib32-pipewire wireplumber pipewire-alsa pipewire-pulse pipewire-jack
+pacman --noconfirm -S xorg noto-fonts noto-fonts-cjk noto-fonts-emoji noto-fonts-extra pipewire lib32-pipewire wireplumber pipewire-alsa pipewire-pulse pipewire-jack
 
 case $gpu in 
   nvidia)
