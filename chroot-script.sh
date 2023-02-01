@@ -23,9 +23,23 @@ then
   editor="neovim"
 fi
 
-pacman --noconfirm -Sy efibootmgr $editor networkmanager base-devel git
+pacman --noconfirm -Sy efibootmgr $editor base-devel git
 
+case $network in
+  systemd-network)
+    echo oops
+    ;;
 
+  dhcpcd)
+    pacman --noconfirm -S dhcpcd
+    systemctl enable dhcpcd
+    ;;
+   
+  *)
+    pacman --noconfirm -S networkmanager
+    systemctl enable NetworkManager
+    ;;
+esac
 
 
 if [ grep 'AuthenticAMD' </proc/cpuinfo | head -n 1 ]
@@ -80,7 +94,7 @@ then
 else
   echo "options  mitigations=off" >> /boot/loader/entries/arch-fallback.conf
 fi
-systemctl enable NetworkManager
+
 
 "[Trigger]
 Type = Package
