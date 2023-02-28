@@ -155,7 +155,7 @@ case $gpu in
   intel)
     pacman -S --noconfirm --needed xf86-video-intel mesa lib32-mesa lib32-vulkan-icd-loader lib32-vulkan-intel vulkan-icd-loader vulkan-intel
     ;;
-  
+      
   *)
     pacman -S --noconfirm xf86-video-amdgpu xf86-video-intel xf86-video-nouveau
     ;;
@@ -174,6 +174,17 @@ then
       pacman -S --noconfirm xfce4 xfce4-goodies lxdm
       systemctl enable lxdm
       ;;
+    
+    dwm)
+      if ! [ $dwmrepo ]
+      then
+        dwmrepo="https://github.com/miguelrcborges/dwm.git"
+      fi
+      
+      git clone https://github.com/miguelrcborges/dwm.git /home/$username/repos/dwm
+      cd /home/$username/repos/dwm
+      make install
+      cd
     
     *)
       pacman -S --noconfirm mutter gnome-shell gnome-session nautilus gnome-control-center gnome-tweaks xdg-desktop-portal-gnome gdm gnome-terminal 
