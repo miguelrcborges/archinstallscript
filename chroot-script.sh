@@ -109,7 +109,7 @@ Exec = /usr/bin/systemctl restart systemd-boot-update.service" > /etc/pacman.d/h
 if [ $winefi ]
 then
   mount $winefi /mnt
-  cp /mnt/EFI /boot/EFI
+  cp /mnt/EFI /boot/EFI -r
   umount /mnt
 fi
 
