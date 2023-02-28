@@ -180,11 +180,18 @@ then
       then
         dwmrepo="https://github.com/miguelrcborges/dwm.git"
         deps="maim rofi xterm xclip ttf-jetbrains-mono-nerd"
+        curl -L "https://raw.githubusercontent.com/miguelrcborges/dotfiles/main/Xresources-desktop/.Xresources" -o /home/$username/.Xresources
       fi
       
       pacman -S --noconfirm xorg-xinit $deps
       git clone https://github.com/miguelrcborges/dwm.git /home/$username/repos/dwm
       cd /home/$username/repos/dwm
+      
+      if [ $dwmrefresh ]
+      then
+        sed -i "s/static const unsigned int refresh_rate = [0-9]\+;/static const unsigned int refresh_rate = $dwmrefresh;/g" config.h
+      fi
+      
       make install
       cd
       ;;
