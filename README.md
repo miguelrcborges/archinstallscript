@@ -16,6 +16,7 @@ Optional but recommended
 - timezone: do ```ls /usr/share/zoneinfo``` to get available regions and ```ls /usr/share/zoneinfo/<Region>``` to get available cities. The format should be Region/City. Defauls to "Europe/Lisbon".
 - rootpw: root user password. Defaults to "root".
 - installtype: One of these values: minimal (only installs base arch and creates new user) and desktop. Defaults to minimal.
+- network: Variable which lets you configure the systems network daemon. It can be systemd-networkd, networkmanager, dhcpcd or none. Defaults to networkmanager.
 - desktop: Choose the Desktop Environment you want between gnome, kde and xfce. Defaults to gnome. **NEW** dwm value.
   - *Only if installtype is set as desktop*
 - username: Username for the user account. Defaults to "user".
