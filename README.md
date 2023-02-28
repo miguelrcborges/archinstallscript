@@ -17,6 +17,7 @@ Optional but recommended
 - rootpw: root user password. Defaults to "root".
 - installtype: One of these values: minimal (only installs base arch and creates new user) and desktop. Defaults to minimal.
 - network: Variable which lets you configure the systems network daemon. It can be systemd-networkd, networkmanager, dhcpcd or none. Defaults to networkmanager.
+  - **NOTE**: systemd-networkd doesn't automatically use your network adapters. Go to it's [documentation](https://wiki.archlinux.org/title/systemd-networkd) in order to enable them.
 - desktop: Choose the Desktop Environment you want between gnome, kde and xfce. Defaults to gnome. **NEW** dwm value.
   - *Only if installtype is set as desktop*
 - username: Username for the user account. Defaults to "user".
