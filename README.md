@@ -1,6 +1,6 @@
 # archinstallscript
 
-## How to use?
+## How to use
 
 This installer uses variables exported. To export variables, do ```export <variable>=<value>```
 
