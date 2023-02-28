@@ -13,7 +13,7 @@ This variables must be exported
 
 Optional but recommended
 - gpu: if unselected, installs the base drivers. Select it to nvidia, amd or intel.
-- timezone: do ```ls /usr/share/zoneinfo``` to get available regions and ```ls /usr/share/zoneinfo/<Region>``` to get available citys. The format should be Region/City. Defauls to "Europe/Lisbon".
+- timezone: do ```ls /usr/share/zoneinfo``` to get available regions and ```ls /usr/share/zoneinfo/<Region>``` to get available cities. The format should be Region/City. Defauls to "Europe/Lisbon".
 - rootpw: root user password. Defaults to "root".
 - installtype: One of these values: minimal (only installs base arch and creates new user) and desktop. Defaults to minimal.
 - desktop: Choose the Desktop Environment you want between gnome, kde and xfce. Defaults to gnome. **NEW** dwm value.
