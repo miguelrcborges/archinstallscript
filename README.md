@@ -18,7 +18,7 @@ Optional but recommended
 - installtype: One of these values: minimal (only installs base arch and creates new user) and desktop. Defaults to minimal.
 - desktop: Choose the Desktop Environment you want between gnome, kde and xfce. Defaults to gnome. **NEW** dwm value.
   - *Only if installtype is set as desktop*
-- dwm-repo: Repository of the dwm build you want to use. Defaults to mine.
+- dwmrepo: Repository of the dwm build you want to use. Defaults to mine.
 - username: Username for the user account. Defaults to "user".
   - NOTE: Don't use uppercase letters. They aren't supported on linux usernames and it will fail to create your user.
 - userpw: Password for the user account. Defaults to "user"
