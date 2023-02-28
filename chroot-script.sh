@@ -181,6 +181,7 @@ then
         dwmrepo="https://github.com/miguelrcborges/dwm.git"
         deps="maim rofi xterm xclip ttf-jetbrains-mono-nerd"
         curl -L "https://raw.githubusercontent.com/miguelrcborges/dotfiles/main/Xresources-desktop/.Xresources" -o /home/$username/.Xresources
+        curl -L "https://raw.githubusercontent.com/miguelrcborges/archinstallscript/main/extras/basic_xinitrc" -o /home/$username/.xinitrc
       fi
       
       pacman -S --noconfirm xorg-xinit $deps
