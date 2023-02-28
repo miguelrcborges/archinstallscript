@@ -55,7 +55,7 @@ then
 fi
 
 bootctl install
-mkdir /boot/loader /boot/loader/entries /etc/pacman.d/hooks
+mkdir -p /boot/loader/entries /etc/pacman.d/hooks
 
 echo "default  arch.conf 
 timeout  4 
