@@ -179,8 +179,10 @@ then
       if ! [ $dwmrepo ]
       then
         dwmrepo="https://github.com/miguelrcborges/dwm.git"
+        deps="maim rofi xterm xclip ttf-jetbrains-mono-nerd"
       fi
       
+      pacman -S --noconfirm xorg-xinit $deps
       git clone https://github.com/miguelrcborges/dwm.git /home/$username/repos/dwm
       cd /home/$username/repos/dwm
       make install
