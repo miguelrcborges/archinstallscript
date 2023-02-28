@@ -13,23 +13,26 @@ This variables must be exported
 
 Optional but recommended
 - gpu: if unselected, installs the base drivers. Select it to nvidia, amd or intel.
-- timezone: do ```ls /usr/share/zoneinfo``` to get available regions and ```ls /usr/share/zoneinfo/<Region>``` to get available citys. The format should be Region/City. Defauls to "Europe/Lisbon"
-- rootpw: root user password. Defaults to "root"
+- timezone: do ```ls /usr/share/zoneinfo``` to get available regions and ```ls /usr/share/zoneinfo/<Region>``` to get available citys. The format should be Region/City. Defauls to "Europe/Lisbon".
+- rootpw: root user password. Defaults to "root".
 - installtype: One of these values: minimal (only installs base arch and creates new user) and desktop. Defaults to minimal.
 - desktop: Choose the Desktop Environment you want between gnome, kde and xfce. Defaults to gnome. **NEW** dwm value.
   - *Only if installtype is set as desktop*
-- dwmrepo: Repository of the dwm build you want to use. Defaults to mine.
 - username: Username for the user account. Defaults to "user".
   - **NOTE**: Don't use uppercase letters. They aren't supported on linux usernames and it will fail to create your user.
-- userpw: Password for the user account. Defaults to "user"
+- userpw: Password for the user account. Defaults to "user".
 - winefi: Windows EFI partition to be detected by systemd-boot. If defined, its contents will be copied to your efi partition, so systemd-boot can detect it and give an option to boot into your windows install.
 
 Optional
 - editor: either neovim, vim or nano. Defaults to nvim.
-- swap: swap partition
+- swap: swap partition.
 - home: home partition
-- kernel: eg. linux-zen
-- hostname: set a hostname instead of "arch"
+- kernel: eg. linux-zen.
+- hostname: set a hostname instead of "arch".
+
+DWM specific
+- dwmrepo: Repository of the dwm build you want to use. Defaults to mine.
+- dwmrefresh: If you have a refresh variable on your dwm's config.h, it should change it according to this variable.
 
 
 Once you are done setting up the variables, run the installer script:
