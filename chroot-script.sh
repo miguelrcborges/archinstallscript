@@ -34,6 +34,9 @@ case $network in
     pacman --noconfirm -S dhcpcd
     systemctl enable dhcpcd
     ;;
+  
+  none)
+    ;;
    
   *)
     pacman --noconfirm -S networkmanager
