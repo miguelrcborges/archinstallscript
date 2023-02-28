@@ -185,6 +185,7 @@ then
       cd /home/$username/repos/dwm
       make install
       cd
+      ;;
     
     *)
       pacman -S --noconfirm mutter gnome-shell gnome-session nautilus gnome-control-center gnome-tweaks xdg-desktop-portal-gnome gdm gnome-terminal 
