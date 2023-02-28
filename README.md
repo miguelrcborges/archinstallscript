@@ -1,6 +1,6 @@
 # archinstallscript
 
-## How to use
+## How to use?
 
 This installer uses variables exported. To export variables, do ```export <variable>=<value>```
 
@@ -8,10 +8,11 @@ This installer uses variables exported. To export variables, do ```export <varia
 
 This variables must be exported
 - root: ```/``` partition
-- boot: ```/boot``` partitton
+- boot: ```/boot``` partition
   - **NOTE**: Should be large enough to hold the kernels you want to install (and windows' efi if you want to it show up on systemd-boot). Arch wiki recommends 512 MB, 300 should be enough for most of the cases and 90ish should be enough if you are going to only use a kernel.
 
-Optional but recommended
+Optional but recommended.
+
 - gpu: if unselected, installs the base drivers. Select it to nvidia, amd or intel.
 - timezone: do ```ls /usr/share/zoneinfo``` to get available regions and ```ls /usr/share/zoneinfo/<Region>``` to get available cities. The format should be Region/City. Defaults to "Europe/Lisbon".
 - rootpw: root user password. Defaults to "root".
