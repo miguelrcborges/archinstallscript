@@ -9,6 +9,7 @@ This installer uses variables exported. To export variables, do ```export <varia
 This variables must be exported
 - root: ```/``` partition
 - boot: ```/boot``` partiiton
+  - NOTE: Should be large enough so it could hold the kernels you want to install (and windows' efi if you want to it show up on systemd-boot). Arch wiki recommends 512 MB, 300 should be enough for most of the cases and 90ish should be enough if you are going to only use a kernel.
 
 Optional but recommended
 - gpu: if unselected, installs the base drivers. Select it to nvidia, amd or intel.
@@ -19,7 +20,7 @@ Optional but recommended
 - username: Username for the user account. Defaults to "user".
   - NOTE: Don't use uppercase letters. They aren't supported on linux usernames and it will fail to create your user.
 - userpw: Password for the user account. Defaults to "user"
-- ~~winefi: Windows EFI partition to be detected by grub~~ Moved to systemd-boot. The automatation of adding windows boot manager entry to the bootloader hasn't been done yet, but can be done checking [this](https://wiki.archlinux.org/title/systemd-boot#Boot_from_another_disk). You can also just change boot order on UEFI.
+- winefi: Windows EFI partition to be detected by systemd-boot. If defined, its contents will be copied to your efi partition, so systemd-boot can detect it and give an option to boot into your windows install.
 
 Optional
 - editor: either neovim, vim or nano. Defaults to nvim.
