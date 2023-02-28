@@ -106,7 +106,12 @@ Description = Gracefully upgrading systemd-boot...
 When = PostTransaction
 Exec = /usr/bin/systemctl restart systemd-boot-update.service" > /etc/pacman.d/hooks/100-systemd-boot.hook
 
-
+if [ $winefi ]
+then
+  mount $winefi /mnt
+  cp /mnt/EFI /boot/EFI
+  umount /mnt
+fi
 
 if ! [ $rootpw ]
 then
