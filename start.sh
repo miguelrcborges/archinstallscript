@@ -37,4 +37,10 @@ timedatectl set-ntp true
 genfstab -U /mnt >> /mnt/etc/fstab
 curl -L https://raw.githubusercontent.com/miguelrcborges/archinstallscript/main/chroot-script.sh -o /mnt/chroot-script.sh
 arch-chroot /mnt sh chroot-script.sh
+
+if [ $network == "systemd-networkd" ]
+then
+  cp -r /etc/systemd/network /mnt/etc/systemd/network
+fi
+
 reboot
