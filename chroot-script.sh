@@ -27,7 +27,7 @@ pacman --noconfirm -Sy efibootmgr $editor base-devel git
 
 case $network in
   systemd-network)
-    systemctl enable systemd-network-d
+    systemctl enable systemd-networkd
     ;;
 
   dhcpcd)
