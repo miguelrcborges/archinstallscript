@@ -45,10 +45,10 @@ case $network in
 esac
 
 
-if [ grep 'AuthenticAMD' </proc/cpuinfo | head -n 1 ]
+if [[ $(grep 'AuthenticAMD' </proc/cpuinfo | head -n 1) ]]
 then
   cpu=amd
-elif [ grep 'GenuineIntel' </proc/cpuinfo | head -n 1 ]
+elif [[ $(grep 'GenuineIntel' </proc/cpuinfo | head -n 1) ]]
 then
   cpu=intel
 fi
