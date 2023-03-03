@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Arch Installation Script</title>
+	<link rel="stylesheet" href="global.css">
+</head>
+<body>
+	<h1>Arch Installation Script</h1>
+	<p>
+		All options besides root and boot partition are optional. Non assigned options either will be assigned to the placeholder (eg. hostname) or
+		will have no effect (eg. home partition, windows efi partition).
+	</p>
+
+	<div class="section">
+		<h2>Partitions</h2>
+		<p>Run "lsblk" on your linux system to get your partitions names.</p>
+		<div class="inline small-margin">
+			<p>Root Partition:</p>
+			<input type="text" placeholder="/dev/sdx">
+		</div>
+		<div class="inline small-margin">
+			<p>Boot Partition:</p>
+			<input type="text" placeholder="/dev/sdx">
+		</div>
+		<div class="inline small-margin">
+			<p>Swap Partition:</p>
+			<input type="text" placeholder="/dev/sdx">
+		</div>
+		<div class="inline small-margin">
+			<p>Home Partition:</p>
+			<input type="text" placeholder="/dev/sdx">
+		</div>
+		<div class="inline small-margin">
+			<p>Windows EFI Partition:</p>
+			<input type="text" placeholder="/dev/sdx">
+		</div>
+	</div>
+
+	
+	<div class="section">
+		<h2>System configuration</h2>
+		<p>
+			Check <a href="https://en.wikipedia.org/wiki/List_of_tz_database_time_zones" target="_blank">here</a> the available timezones
+			(second column).
+		</p>
+		<div class="inline small-margin">
+			<p>Kernel:</p>
+			<select id="kernel" value="linux">
+				<option value="linux">linux</option>
+				<option value="linux-zen">linux-zen</option>
+				<option value="linux-rt">linux-rt</option>
+				<option value="linux-lts">linux-lts</option>
+				<option value="linux-hardened">linux-hardened</option>
+			</select>
+		</div>
+		<div class="inline small-margin">
+			<p>Network Daemon:</p>
+			<select id="network" value="networkmanager">
+				<option value="networkmanager">NetworkManager</option>
+				<option value="systemd-networkd">systemd-networkd</option>
+				<option value="dhcpcd">dhcpcd</option>
+				<option value="none">none</option>
+			</select>
+		</div>
+		<div class="inline small-margin">
+			<p>Installation type:</p>
+			<select id="installtype" value="desktop">
+				<option value="installtype">Desktop</option>
+				<option value="minimal">Minimal</option>
+			</select>
+		</div>
+		<div class="inline small-margin">
+			<p>Desktop:</p>
+			<select id="installtype" value="gnome">
+				<option value="gnome">Gnome</option>
+				<option value="kde">KDE</option>
+				<option value="xfce">xfce</option>
+				<option value="dwm">dwm</option>
+			</select>
+		</div>
+		<div class="inline small-margin">
+			<p>Hostname:</p>
+			<input type="text" placeholder="arch">
+		</div>
+		<div class="inline small-margin">
+			<p>Timezone:</p>
+			<input type="text" placeholder="Europe/Lisbon">
+		</div>
+		<div class="inline small-margin">
+			<p>GPU:</p>
+			<select id="installtype" value="nvidia">
+				<option value="nvidia">Nvidia</option>
+				<option value="amd">AMD</option>
+				<option value="intel">Intel</option>
+			</select>
+		</div>
+	</div>
+
+	<div class="section">
+		<h2>Users</h2>
+		<div class="inline small-margin">
+			<p>User name:</p>
+			<input type="text" placeholder="user">
+		</div>
+		<div class="inline small-margin">
+			<p>User password:</p>
+			<input type="password" placeholder="user">
+		</div>
+		<div class="inline small-margin">
+			<p>Root password:</p>
+			<input type="password" placeholder="root">
+		</div>
+		<div class="inline small-margin">
+			<p>Text editor:</p>
+			<select id="installtype" value="nvim">
+				<option value="nvim">neovim</option>
+				<option value="vim">vim</option>
+				<option value="vi">vi</option>
+				<option value="nano">GNU nano</option>
+				<option value="micro">micro</option>
+				<option value="kakoune">Kakoune</option>
+				<option value="helix">Helix</option>
+			</select>
+		</div>
+	</div>
+
+	<button>Generate Script</button>
+
+	<script src="main.js"></script>
+</body>
+</html>

@@ -1,0 +1,96 @@
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,300;1,400;1,500;1,600;1,700;1,800&family=Raleway:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
+:root {
+	font-size: 62.5%;
+
+	--bg: #282828;
+	--fg: #d4be98;
+	--green: #a9b665;
+	--yellow: #d8a657;
+	--blue: #7daea3;
+}
+
+body {
+	background-color: var(--bg);
+	color: var(--fg);
+	font-family: 'Open Sans', sans-serif;
+	font-size: 2rem;
+
+	margin: 10rem auto;
+	width: min(90vw, 700px);
+};
+
+h1, h2, h3, h4, h5 {
+	font-family: 'Raleway', sans-serif;
+}
+
+h1 {
+	font-size: 4rem;
+	line-height: 4.5rem; 
+
+	color: var(--green);
+}
+
+h2 {
+	font-size: 3rem;
+	line-height: 3rem;
+
+	margin: 1rem 0;
+
+	color: var(--yellow);
+}
+
+a {
+	color: var(--yellow)
+}
+
+input, select {
+	background-color: var(--bg);
+	color: var(--fg);
+	font-size: 1.8rem;
+	font-family: 'Open Sans', sans-serif;
+
+	padding: 0.5rem 1rem;
+	border: 0.2rem solid var(--green);
+	border-radius: 1rem;
+	
+	margin: 0 1rem;
+}
+
+button {
+	background-color: var(--bg);
+	color: var(--blue);
+	font-size: 1.8rem;
+	font-family: 'Open Sans', sans-serif;
+
+	padding: 1rem 2rem;
+	border: 0.2rem solid var(--blue);
+	border-radius: 1rem;
+
+	left: 50%;
+
+	transition: 200ms;
+}
+
+button:hover {
+	cursor: pointer;
+	background-color: var(--blue);
+	color: var(--bg);
+}
+
+.inline {
+	display: flex;
+	align-items: center;
+}
+
+.small-margin {
+	margin: 1rem 0rem;
+}
+
+.section {
+	margin: 6rem 0rem;
+}
+
+.hidden {
+	display: none;
+}
