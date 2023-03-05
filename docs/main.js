@@ -5,12 +5,10 @@ function setHighlightRequired(color) {
         val = l[i].children[1].value
         text = l[i].children[0]
         if(val == "") {
-            text.style.color=color
-            text.style.fontWeight="bold"
+            text.classList.add("highlight")
             r = true
         } else {
-            text.style.color=""
-            text.style.fontWeight=""
+            text.classList.remove("highlight")
         }
     }
     return r
