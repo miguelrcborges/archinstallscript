@@ -94,3 +94,7 @@ button:hover {
 .hidden {
 	display: none;
 }
+.highlight {
+	color: red;
+	font-weight: bold;
+}

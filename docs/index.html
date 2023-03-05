@@ -17,25 +17,25 @@
 	<div class="section">
 		<h2>Partitions</h2>
 		<p>Run "lsblk" on your linux system to get your partitions names.</p>
-		<div class="inline small-margin">
+		<div class="inline small-margin required">
 			<p>Root Partition:</p>
-			<input type="text" placeholder="/dev/sdx">
+			<input type="text" placeholder="/dev/sdx" id="root">
 		</div>
-		<div class="inline small-margin">
+		<div class="inline small-margin required">
 			<p>Boot Partition:</p>
-			<input type="text" placeholder="/dev/sdx">
+			<input type="text" placeholder="/dev/sdx" id="boot">
 		</div>
 		<div class="inline small-margin">
 			<p>Swap Partition:</p>
-			<input type="text" placeholder="/dev/sdx">
+			<input type="text" placeholder="/dev/sdx" id="swap">
 		</div>
 		<div class="inline small-margin">
 			<p>Home Partition:</p>
-			<input type="text" placeholder="/dev/sdx">
+			<input type="text" placeholder="/dev/sdx" id="home">
 		</div>
 		<div class="inline small-margin">
 			<p>Windows EFI Partition:</p>
-			<input type="text" placeholder="/dev/sdx">
+			<input type="text" placeholder="/dev/sdx" id="winefi">
 		</div>
 	</div>
 
@@ -68,13 +68,13 @@
 		<div class="inline small-margin">
 			<p>Installation type:</p>
 			<select id="installtype" value="desktop">
-				<option value="installtype">Desktop</option>
+				<option value="desktop">Desktop</option>
 				<option value="minimal">Minimal</option>
 			</select>
 		</div>
 		<div class="inline small-margin">
 			<p>Desktop:</p>
-			<select id="installtype" value="gnome">
+			<select id="desktop" value="gnome">
 				<option value="gnome">Gnome</option>
 				<option value="kde">KDE</option>
 				<option value="xfce">xfce</option>
@@ -83,18 +83,19 @@
 		</div>
 		<div class="inline small-margin">
 			<p>Hostname:</p>
-			<input type="text" placeholder="arch">
+			<input type="text" placeholder="arch" id="host">
 		</div>
 		<div class="inline small-margin">
 			<p>Timezone:</p>
-			<input type="text" placeholder="Europe/Lisbon">
+			<input type="text" placeholder="Europe/Lisbon" id="timezone">
 		</div>
 		<div class="inline small-margin">
 			<p>GPU:</p>
-			<select id="installtype" value="nvidia">
+			<select id="gpu" value="nvidia">
 				<option value="nvidia">Nvidia</option>
 				<option value="amd">AMD</option>
 				<option value="intel">Intel</option>
+				<option value="">Base</option>
 			</select>
 		</div>
 	</div>
@@ -103,19 +104,19 @@
 		<h2>Users</h2>
 		<div class="inline small-margin">
 			<p>User name:</p>
-			<input type="text" placeholder="user">
+			<input type="text" placeholder="user" id="user">
 		</div>
 		<div class="inline small-margin">
 			<p>User password:</p>
-			<input type="password" placeholder="user">
+			<input type="password" placeholder="user" id="userpw">
 		</div>
 		<div class="inline small-margin">
 			<p>Root password:</p>
-			<input type="password" placeholder="root">
+			<input type="password" placeholder="root" id="rootpw">
 		</div>
 		<div class="inline small-margin">
 			<p>Text editor:</p>
-			<select id="installtype" value="nvim">
+			<select id="editor" value="nvim">
 				<option value="nvim">neovim</option>
 				<option value="vim">vim</option>
 				<option value="vi">vi</option>
@@ -127,7 +128,7 @@
 		</div>
 	</div>
 
-	<button>Generate Script</button>
+	<button onclick="generate()">Generate Script</button>
 
 	<script src="main.js"></script>
 </body>
