@@ -45,5 +45,11 @@ function generate() {
         }
     })
     script += "curl -L -s https://bit.ly/35SjPVH | sh"
-    document.getElementsByClassName("script")[0].innerHTML = script
+    let d = document.createElement('a')
+    d.style.display = 'none'
+    d.setAttribute('download', "install.sh")
+    d.setAttribute('href', 'data:application/x-sh;charset=utf-8,' + encodeURIComponent(script))
+    document.body.appendChild(d)
+    d.click()
+    document.body.removeChild(d)
 }
