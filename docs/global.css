@@ -44,7 +44,7 @@ a {
 	color: var(--yellow)
 }
 
-input, select {
+input, select, .script {
 	background-color: var(--bg);
 	color: var(--fg);
 	font-size: 1.8rem;
