@@ -3,6 +3,7 @@
 ## How to use
 
 This installer uses variables exported. To export variables, do ```export <variable>=<value>```
+You can also use [this website](https://miguelrcborges.github.io/archinstallscript/) to generate the installation script.
 
 ### Variables
 
