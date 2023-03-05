@@ -1,21 +1,23 @@
+"use strict";
+
 function setHighlightRequired() {
-	l = document.getElementsByClassName("required")
-	r = false
+	l = document.getElementsByClassName("required");
+	r = false;
 	for (var i = 0; i < l.length; i++) {
-		val = l[i].children[1].value
-		text = l[i].children[0]
+		val = l[i].children[1].value;
+		text = l[i].children[0];
 		if(val == "") {
-			text.classList.add("highlight")
-			r = true
+			text.classList.add("highlight");
+			r = true;
 		} else {
-			text.classList.remove("highlight")
+			text.classList.remove("highlight");
 		}
 	}
-	return r
+	return r;
 }
 
 function generate() {
-	var config = {
+	const config = {
 		"root": document.getElementById("root").value,
 		"boot": document.getElementById("boot").value,
 		"swap": document.getElementById("swap").value,
@@ -34,23 +36,22 @@ function generate() {
 		"editor": document.getElementById("editor").value,
 	}
 
-	if(setHighlightRequired()) {
-		return
+	if (setHighlightRequired()) {
+		return;
 	}
 	
-	let script = ""
-	Object.entries(config).forEach(([k,v]) => {
-		if (v != "") {
-			script += "export " + k + "=" + v + ";"
-		}
-	})
+	let script = Object.entries(config)
+		.filter(([_, value]) => value !== '')
+		.map(([key, value]) => `export ${key}=${value}`)
+		.join('');
 
-	script += "curl -L -s https://raw.githubusercontent.com/miguelrcborges/archinstallscript/main/start.sh | sh"
-	let d = document.createElement('a')
-	d.style.display = 'none'
-	d.setAttribute('download', "install.sh")
-	d.setAttribute('href', 'data:application/x-sh;charset=utf-8,' + encodeURIComponent(script))
-	document.body.appendChild(d)
-	d.click()
-	document.body.removeChild(d)
+
+	script += "curl -L -s https://raw.githubusercontent.com/miguelrcborges/archinstallscript/main/start.sh | sh";
+	let d = document.createElement('a');
+	d.style.display = 'none';
+	d.setAttribute('download', "install.sh");
+	d.setAttribute('href', 'data:application/x-sh;charset=utf-8,' + encodeURIComponent(script));
+	document.body.appendChild(d);
+	d.click();
+	document.body.removeChild(d);
 }
