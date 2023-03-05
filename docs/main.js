@@ -34,23 +34,25 @@ function generate() {
 		"editor": document.getElementById("editor").value,
 	}
 
-	if(setHighlightRequired()) {
-		return
-	}
-	
-	let script = ""
-	Object.entries(config).forEach(([k,v]) => {
-		if (v != "") {
-			script += "export " + k + "=" + v + ";"
-		}
-	})
+  if (setHighlightRequired()) {
+    return;
+  }
 
-	script += "curl -L -s https://raw.githubusercontent.com/miguelrcborges/archinstallscript/main/start.sh | sh"
-	let d = document.createElement('a')
-	d.style.display = 'none'
-	d.setAttribute('download', "install.sh")
-	d.setAttribute('href', 'data:application/x-sh;charset=utf-8,' + encodeURIComponent(script))
-	document.body.appendChild(d)
-	d.click()
-	document.body.removeChild(d)
+  // Generate the script
+  let script = Object.entries(config)
+  .filter(([key, value]) => value !== '')
+  .map(([key, value]) => `export ${key}=${value};`)
+  .join('');
+
+  // Add the curl command to the script 
+  script += "curl -L -s https://raw.githubusercontent.com/miguelrcborges/archinstallscript/main/start.sh | sh"
+
+  // Write the script to the file and prompt the user to download it
+  let downloadLink = document.createElement('a');
+  downloadLink.style.display = 'none'
+  downloadLink.setAttribute('download', 'install_script.sh');
+  downloadLink.setAttribute('href', 'data:application/x-sh;charset=utf-8,' + encodeURIComponent(script))
+  document.body.appendChild(downloadLink);
+  downloadLink.click();
+  document.body.removeChild(downloadLink);
 }
