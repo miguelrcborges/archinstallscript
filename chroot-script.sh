@@ -190,6 +190,7 @@ then
       pacman -S --noconfirm xorg-xinit $deps
       git clone https://github.com/miguelrcborges/dwm.git /home/$username/repos/dwm
       cd /home/$username/repos/dwm
+      chown -R $username /home/$username/repos
       
       if [ $dwmrefresh ]
       then
