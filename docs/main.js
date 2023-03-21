@@ -1,8 +1,8 @@
 "use strict";
 
 function setHighlightRequired() {
-	l = document.getElementsByClassName("required");
-	r = false;
+	let l = document.getElementsByClassName("required");
+	let r = false;
 	for (var i = 0; i < l.length; i++) {
 		val = l[i].children[1].value;
 		text = l[i].children[0];
