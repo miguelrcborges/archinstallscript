@@ -46,7 +46,7 @@ function generate() {
 		.join('\n');
 
 
-	script += "curl -L -s https://raw.githubusercontent.com/miguelrcborges/archinstallscript/main/start.sh | sh";
+	script += "\ncurl -L -s https://raw.githubusercontent.com/miguelrcborges/archinstallscript/main/start.sh | sh";
 	let d = document.createElement('a');
 	d.style.display = 'none';
 	d.setAttribute('download', "install.sh");
