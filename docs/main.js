@@ -1,12 +1,12 @@
 "use strict";
 
 function setHighlightRequired() {
-	let l = document.getElementsByClassName("required");
+	const l = document.getElementsByClassName("required");
 	let r = false;
-	for (var i = 0; i < l.length; i++) {
-		val = l[i].children[1].value;
-		text = l[i].children[0];
-		if(val == "") {
+	for (let i = 0; i < l.length; i++) {
+		const val = l[i].children[1].value;
+		const text = l[i].children[0];
+		if (val == "") {
 			text.classList.add("highlight");
 			r = true;
 		} else {
