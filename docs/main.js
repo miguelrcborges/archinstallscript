@@ -43,7 +43,7 @@ function generate() {
 	let script = Object.entries(config)
 		.filter(([_, value]) => value !== '')
 		.map(([key, value]) => `export ${key}=${value}`)
-		.join('');
+		.join('\n');
 
 
 	script += "curl -L -s https://raw.githubusercontent.com/miguelrcborges/archinstallscript/main/start.sh | sh";
