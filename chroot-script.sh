@@ -99,7 +99,7 @@ else
 fi
 
 
-"[Trigger]
+echo "[Trigger]
 Type = Package
 Operation = Upgrade
 Target = systemd
