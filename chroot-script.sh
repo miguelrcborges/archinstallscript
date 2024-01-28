@@ -26,7 +26,7 @@ fi
 pacman --noconfirm -Sy efibootmgr $editor base-devel git
 
 case $network in
-  systemd-network)
+  systemd-networkd)
     systemctl enable systemd-networkd
     ;;
 
