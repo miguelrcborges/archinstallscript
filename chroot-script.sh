@@ -28,6 +28,7 @@ pacman --noconfirm -Sy efibootmgr $editor base-devel git
 case $network in
   systemd-networkd)
     systemctl enable systemd-networkd
+    systemctl enable systemd-resolved
     ;;
 
   dhcpcd)
@@ -142,7 +143,7 @@ then
   exit
 fi
 
-sudo sed -i "/\[multilib\]/,/Include/"'s/^#//' /etc/pacman.conf
+sed -i "/\[multilib\]/,/Include/"'s/^#//' /etc/pacman.conf
 pacman -Sy
 pacman --noconfirm -S xorg noto-fonts noto-fonts-cjk noto-fonts-emoji noto-fonts-extra pipewire lib32-pipewire wireplumber pipewire-alsa pipewire-pulse pipewire-jack
 
