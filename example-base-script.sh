@@ -1,21 +1,21 @@
 #!/bin/bash
 
-if ! [ $rootpw ]
-then
+if ! [ $rootpw ]; then
   echo "Add a root password before running this script!"
   exit
 fi
 
-if ! [ $userpw ]
-then
+if ! [ $userpw ]; then
   echo "Add a password for your user before running this script!"
   exit
 fi
 
 export boot=/dev/sda1
-export root=/dev/sda2
-export cpu=intel
+export swap=/dev/sda2
+export root=/dev/sda3
 
+export network=systemd-networkd
+export gpu=amd
 export username=miguel
 export hostname=pc
 export timezone=Europe/Lisbon

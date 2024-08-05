@@ -27,7 +27,20 @@ if ! [ $kernel ]; then
   export kernel=linux
 fi
 
-pacstrap /mnt base $kernel $kernel-headers linux-firmware xfsprogs || exit
+attempts=0
+max_attempts=${max_attempts:-5}
+while true; do
+  if pacstrap /mnt base $kernel $kernel-headers linux-firmware xfsprogs; then
+    break
+  fi
+  attempts=$((attempts + 1))
+  if [ $attempts -ge $max_attempts ]; then
+    echo "Pacstrap failed after $max_attempts attempts."
+    exit 1
+  fi
+  echo "Pacstrap failed. Retrying... (Attempt: $attempts/$max_attempts)"
+done
+
 timedatectl set-ntp true
 genfstab -U /mnt >>/mnt/etc/fstab
 curl -L https://raw.githubusercontent.com/miguelrcborges/archinstallscript/main/chroot-script.sh -o /mnt/chroot-script.sh
