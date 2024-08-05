@@ -30,7 +30,7 @@ fi
 attempts=0
 max_attempts=${max_attempts:-5}
 while true; do
-  if pacstrap /mnt base "$kernel" "$kernel-headers" linux-firmware xfsprogs; then
+  if pacstrap /mnt base $kernel $kernel-headers linux-firmware xfsprogs; then
     break
   fi
   attempts=$((attempts + 1))
