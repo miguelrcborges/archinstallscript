@@ -4,7 +4,7 @@ retry_function() {
   local command=$1
   shift
   local attempts=0
-  local max_attempts=5
+  local max_attempts=${max_attempts:-5}
   while true; do
     if $command "$@"; then
       break
@@ -14,11 +14,7 @@ retry_function() {
       echo "$command failed after $max_attempts attempts."
       exit 1
     fi
-    read -p "$command failed. Retry? (y/n): " choice
-    if [ "$choice" != "y" ]; then
-      echo "Aborting installation."
-      exit 1
-    fi
+    echo "$command failed. Retrying... (Attempt: $attempts/$max_attempts)"
   done
 }
 

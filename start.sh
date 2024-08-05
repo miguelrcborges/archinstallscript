@@ -28,9 +28,9 @@ if ! [ $kernel ]; then
 fi
 
 attempts=0
-max_attempts=5
+max_attempts=${max_attempts:-5}
 while true; do
-  if pacstrap /mnt base $kernel $kernel-headers linux-firmware xfsprogs; then
+  if pacstrap /mnt base "$kernel" "$kernel-headers" linux-firmware xfsprogs; then
     break
   fi
   attempts=$((attempts + 1))
@@ -38,11 +38,7 @@ while true; do
     echo "Pacstrap failed after $max_attempts attempts."
     exit 1
   fi
-  read -p "Pacstrap failed. Retry? (y/n): " choice
-  if [ "$choice" != "y" ]; then
-    echo "Aborting installation."
-    exit 1
-  fi
+  echo "Pacstrap failed. Retrying... (Attempt: $attempts/$max_attempts)"
 done
 
 timedatectl set-ntp true
