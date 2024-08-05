@@ -42,7 +42,7 @@ if ! [ $editor ]; then
   editor="neovim"
 fi
 
-retry_function pacman --noconfirm -S efibootmgr $editor base-devel git
+retry_function pacman --noconfirm -Sy efibootmgr $editor base-devel git
 
 case $network in
 systemd-networkd)
