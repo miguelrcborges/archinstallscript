@@ -1,5 +1,27 @@
 #!bin/sh
 
+retry_function() {
+  local command=$1
+  shift
+  local attempts=0
+  local max_attempts=5
+  while true; do
+    if $command "$@"; then
+      break
+    fi
+    attempts=$((attempts + 1))
+    if [ $attempts -ge $max_attempts ]; then
+      echo "$command failed after $max_attempts attempts."
+      exit 1
+    fi
+    read -p "$command failed. Retry? (y/n): " choice
+    if [ "$choice" != "y" ]; then
+      echo "Aborting installation."
+      exit 1
+    fi
+  done
+}
+
 if ! [ $timezone ]; then
   timezone="Europe/Lisbon"
 fi
@@ -20,23 +42,20 @@ if ! [ $editor ]; then
   editor="neovim"
 fi
 
-pacman --noconfirm -Sy efibootmgr $editor base-devel git
+retry_function pacman --noconfirm -S efibootmgr $editor base-devel git
 
 case $network in
 systemd-networkd)
   systemctl enable systemd-networkd
   systemctl enable systemd-resolved
   ;;
-
 dhcpcd)
-  pacman --noconfirm -S dhcpcd
+  retry_function pacman --noconfirm -S dhcpcd
   systemctl enable dhcpcd
   ;;
-
 none) ;;
-
 *)
-  pacman --noconfirm -S networkmanager
+  retry_function pacman --noconfirm -S networkmanager
   systemctl enable NetworkManager
   ;;
 esac
@@ -47,7 +66,7 @@ elif [[ $(grep 'GenuineIntel' </proc/cpuinfo | head -n 1) ]]; then
   cpu=intel
 fi
 if [ $cpu ]; then
-  pacman --noconfirm -S $cpu-ucode
+  retry_function pacman --noconfirm -S $cpu-ucode
 fi
 
 bootctl install
@@ -116,48 +135,41 @@ echo "root:$rootpw" | chpasswd
 useradd -mg wheel $username
 echo "$username:$userpw" | chpasswd
 sed -i "/^# %wheel ALL=(ALL:ALL) ALL/ c%wheel ALL=(ALL:ALL) ALL" /etc/sudoers
-
 sed -Ei "s/^#(ParallelDownloads).*/\1 = 5/;/^#Color$/s/#//" /etc/pacman.conf
+sed -i "/\[multilib\]/,/Include/"'s/^#//' /etc/pacman.conf
 sed -i "s/-j2/-j$(nproc)/;/^#MAKEFLAGS/s/^#//" /etc/makepkg.conf
 
 if ! [ $installtype ] || [ $installtype == "minimal" ]; then
   exit
 fi
 
-sed -i "/\[multilib\]/,/Include/"'s/^#//' /etc/pacman.conf
-pacman -Sy
-pacman --noconfirm -S xorg noto-fonts noto-fonts-cjk noto-fonts-emoji noto-fonts-extra pipewire lib32-pipewire wireplumber pipewire-alsa pipewire-pulse pipewire-jack
+retry_function pacman --noconfirm -Sy xorg noto-fonts noto-fonts-cjk noto-fonts-emoji noto-fonts-extra pipewire lib32-pipewire wireplumber pipewire-alsa pipewire-pulse pipewire-jack
 
 case $gpu in
 nvidia)
-  pacman -S --noconfirm --needed lib32-libglvnd lib32-nvidia-utils lib32-vulkan-icd-loader libglvnd nvidia-dkms nvidia-settings vulkan-icd-loader
+  retry_function pacman --noconfirm --needed -S lib32-libglvnd lib32-nvidia-utils lib32-vulkan-icd-loader libglvnd nvidia-dkms nvidia-settings vulkan-icd-loader
   ;;
-
 amd)
-  pacman -S --noconfirm --needed xf86-video-amdgpu mesa lib32-mesa lib32-vulkan-icd-loader lib32-vulkan-radeon vulkan-icd-loader vulkan-radeon
+  retry_function pacman --noconfirm --needed -S xf86-video-amdgpu mesa lib32-mesa lib32-vulkan-icd-loader lib32-vulkan-radeon vulkan-icd-loader vulkan-radeon
   ;;
-
 intel)
-  pacman -S --noconfirm --needed xf86-video-intel mesa lib32-mesa lib32-vulkan-icd-loader lib32-vulkan-intel vulkan-icd-loader vulkan-intel
+  retry_function pacman --noconfirm --needed -S xf86-video-intel mesa lib32-mesa lib32-vulkan-icd-loader lib32-vulkan-intel vulkan-icd-loader vulkan-intel
   ;;
-
 *)
-  pacman -S --noconfirm xf86-video-amdgpu xf86-video-intel xf86-video-nouveau
+  retry_function pacman --noconfirm --needed -S xf86-video-amdgpu xf86-video-intel xf86-video-nouveau
   ;;
 esac
 
 if [ $installtype == "desktop" ]; then
   case $desktop in
   kde)
-    pacman -S --noconfirm plasma-pa plasma-nm xdg-desktop-portal-kde kscreen kde-gtk-config breeze-gtk kdeplasma-addons ark sddm konsole dolphin systemsettings plasma-desktop plasma-workspace kinit
+    retry_function pacman --noconfirm -S plasma-pa plasma-nm xdg-desktop-portal-kde kscreen kde-gtk-config breeze-gtk kdeplasma-addons ark sddm konsole dolphin systemsettings plasma-desktop plasma-workspace kinit
     systemctl enable sddm
     ;;
-
   xfce)
-    pacman -S --noconfirm xfce4 xfce4-goodies lxdm
+    retry_function pacman --noconfirm -S xfce4 xfce4-goodies lxdm
     systemctl enable lxdm
     ;;
-
   dwm)
     if ! [ $dwmrepo ]; then
       dwmrepo="https://github.com/miguelrcborges/dwm.git"
@@ -166,7 +178,7 @@ if [ $installtype == "desktop" ]; then
       curl -L "https://raw.githubusercontent.com/miguelrcborges/archinstallscript/main/extras/basic_xinitrc" -o /home/$username/.xinitrc
     fi
 
-    pacman -S --noconfirm xorg-xinit $deps
+    retry_function pacman --noconfirm -S xorg-xinit $deps
     git clone https://github.com/miguelrcborges/dwm.git /home/$username/repos/dwm
     cd /home/$username/repos/dwm
     chown -R $username /home/$username/repos
@@ -178,9 +190,8 @@ if [ $installtype == "desktop" ]; then
     make install
     cd
     ;;
-
   *)
-    pacman -S --noconfirm mutter gnome-shell gnome-session nautilus gnome-control-center gnome-tweaks xdg-desktop-portal-gnome gdm gnome-terminal
+    retry_function pacman --noconfirm -S mutter gnome-shell gnome-session nautilus gnome-control-center gnome-tweaks xdg-desktop-portal-gnome gdm gnome-terminal
     systemctl enable gdm
     ;;
   esac
