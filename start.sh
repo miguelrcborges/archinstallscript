@@ -47,7 +47,7 @@ curl -L https://raw.githubusercontent.com/miguelrcborges/archinstallscript/main/
 arch-chroot /mnt sh chroot-script.sh
 
 if [ $network == "systemd-networkd" ]; then
-  cp -r /etc/systemd/network /mnt/etc/systemd/network
+  cp -r /etc/systemd/network /mnt/etc/systemd
 fi
 
 reboot
