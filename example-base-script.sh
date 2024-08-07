@@ -18,7 +18,6 @@ export network=systemd-networkd
 export gpu=amd
 export username=miguel
 export hostname=pc
-export timezone=Europe/Lisbon
 export installtype=desktop
 export desktop=gnome
 

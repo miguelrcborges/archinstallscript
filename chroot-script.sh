@@ -18,11 +18,7 @@ retry_function() {
   done
 }
 
-if ! [ $timezone ]; then
-  timezone="Europe/Lisbon"
-fi
-
-ln -sf /usr/share/zoneinfo/$timezone /etc/localtime
+ln -sf /usr/share/zoneinfo/$(curl -s http://ip-api.com/line?fields=timezone) /etc/localtime
 hwclock --systohc
 sed -i "/^#en_US.UTF-8/ cen_US.UTF-8 UTF-8" /etc/locale.gen
 locale-gen
@@ -68,12 +64,12 @@ fi
 bootctl install
 mkdir -p /boot/loader/entries /etc/pacman.d/hooks
 
-echo "default  arch.conf 
-timeout  4 
-console-mode max 
+echo "default  arch.conf
+timeout  4
+console-mode max
 editor  yes" >/boot/loader/loader.conf
 
-echo "title  Arch Linux 
+echo "title  Arch Linux
 linux  /vmlinuz-$kernel" >/boot/loader/entries/arch.conf
 if [ $cpu ]; then
   echo "initrd  /$cpu-ucode.img" >>/boot/loader/entries/arch.conf
@@ -87,7 +83,7 @@ else
   echo "options  mitigations=off" >>/boot/loader/entries/arch.conf
 fi
 
-echo "title  Arch Linux Fallback 
+echo "title  Arch Linux Fallback
 linux  /vmlinuz-$kernel" >/boot/loader/entries/arch-fallback.conf
 if [ $cpu ]; then
   echo "initrd  /$cpu-ucode.img" >>/boot/loader/entries/arch-fallback.conf
@@ -130,7 +126,8 @@ fi
 echo "root:$rootpw" | chpasswd
 useradd -mg wheel $username
 echo "$username:$userpw" | chpasswd
-sed -i "/^# %wheel ALL=(ALL:ALL) ALL/ c%wheel ALL=(ALL:ALL) ALL" /etc/sudoers
+echo "%wheel ALL=(ALL:ALL) ALL" >/etc/sudoers.d/00-wheel-can-sudo
+echo "%wheel ALL=(ALL:ALL) NOPASSWD: /usr/bin/shutdown,/usr/bin/reboot,/usr/bin/systemctl suspend,/usr/bin/wifi-menu,/usr/bin/mount,/usr/bin/umount,/usr/bin/pacman -Syu,/usr/bin/pacman -Syyu,/usr/bin/pacman -Syyu --noconfirm,/usr/bin/loadkeys,/usr/bin/pacman -Syyuw --noconfirm,/usr/bin/pacman -S -y --config /etc/pacman.conf --,/usr/bin/pacman -S -y -u --config /etc/pacman.conf --" >/etc/sudoers.d/01-cmds-without-password
 sed -Ei "s/^#(ParallelDownloads).*/\1 = 5/;/^#Color$/s/#//" /etc/pacman.conf
 sed -i "/\[multilib\]/,/Include/"'s/^#//' /etc/pacman.conf
 sed -i "s/-j2/-j$(nproc)/;/^#MAKEFLAGS/s/^#//" /etc/makepkg.conf
