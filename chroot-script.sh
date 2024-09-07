@@ -19,7 +19,7 @@ retry_function() {
 }
 
 if ! [ $timezone ]; then
-  timezone="Europe/Lisbon"
+  timezone=$(curl -s http://ip-api.com/line?fields=timezone)
 fi
 
 ln -sf /usr/share/zoneinfo/$timezone /etc/localtime
@@ -68,12 +68,12 @@ fi
 bootctl install
 mkdir -p /boot/loader/entries /etc/pacman.d/hooks
 
-echo "default  arch.conf 
-timeout  4 
-console-mode max 
+echo "default  arch.conf
+timeout  4
+console-mode max
 editor  yes" >/boot/loader/loader.conf
 
-echo "title  Arch Linux 
+echo "title  Arch Linux
 linux  /vmlinuz-$kernel" >/boot/loader/entries/arch.conf
 if [ $cpu ]; then
   echo "initrd  /$cpu-ucode.img" >>/boot/loader/entries/arch.conf
@@ -87,7 +87,7 @@ else
   echo "options  mitigations=off" >>/boot/loader/entries/arch.conf
 fi
 
-echo "title  Arch Linux Fallback 
+echo "title  Arch Linux Fallback
 linux  /vmlinuz-$kernel" >/boot/loader/entries/arch-fallback.conf
 if [ $cpu ]; then
   echo "initrd  /$cpu-ucode.img" >>/boot/loader/entries/arch-fallback.conf
