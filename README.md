@@ -14,7 +14,6 @@ These variables must be exported:
 
 Optional but recommended:
 - gpu: if unselected, installs the base drivers. Select it for nvidia, amd, or intel.
-- timezone: Automatically detected using IP-based geolocation. No manual configuration needed.
 - rootpw: root user password. Defaults to "root".
 - installtype: One of these values: minimal (only installs base Arch and creates a new user) or desktop. Defaults to minimal.
 - network: Variable to configure the system's network daemon. It can be systemd-networkd, networkmanager, dhcpcd, or none. Defaults to networkmanager.
@@ -26,6 +25,7 @@ Optional but recommended:
 - winefi: Windows EFI partition to be detected by systemd-boot. If defined, its contents will be copied to your EFI partition, allowing systemd-boot to detect it and provide an option to boot into your Windows installation.
 
 Optional:
+- timezone: clock timezone. Defaults to an automatically detected value using IP-based geolocation.
 - editor: either neovim, vim, or nano. Defaults to neovim.
 - swap: swap partition.
 - home: home partition.
