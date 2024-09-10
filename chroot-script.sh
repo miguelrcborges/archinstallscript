@@ -69,7 +69,7 @@ bootctl install
 mkdir -p /boot/loader/entries /etc/pacman.d/hooks
 
 echo "default  arch.conf
-timeout  4
+timeout  3
 console-mode max
 editor  yes" >/boot/loader/loader.conf
 
@@ -130,7 +130,7 @@ fi
 echo "root:$rootpw" | chpasswd
 useradd -mg wheel $username
 echo "$username:$userpw" | chpasswd
-sed -i "/^# %wheel ALL=(ALL:ALL) ALL/ c%wheel ALL=(ALL:ALL) ALL" /etc/sudoers
+echo "$username ALL=(ALL) ALL" >>/etc/sudoers.d/00_$username
 sed -Ei "s/^#(ParallelDownloads).*/\1 = 5/;/^#Color$/s/#//" /etc/pacman.conf
 sed -i "/\[multilib\]/,/Include/"'s/^#//' /etc/pacman.conf
 sed -i "s/-j2/-j$(nproc)/;/^#MAKEFLAGS/s/^#//" /etc/makepkg.conf
