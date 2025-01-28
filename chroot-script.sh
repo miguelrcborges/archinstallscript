@@ -1,4 +1,4 @@
-#!bin/sh
+#!/bin/sh
 
 retry_function() {
   local command=$1
@@ -82,7 +82,7 @@ echo "initrd  /initramfs-$kernel.img
 options  root=$(cat /etc/fstab | grep 'UUID' | head -n 1 - | awk '{print $1}') rw rootfstype=xfs" >>/boot/loader/entries/arch.conf
 
 if [ "$gpu" == "nvidia" ]; then
-  echo "options  mitigations=off nvidia-drm.modeset=1" >>/boot/loader/entries/arch.conf
+  echo "options  mitigations=off nvidia-drm.modeset=1 nvidia_drm.fbdev=1" >>/boot/loader/entries/arch.conf
 else
   echo "options  mitigations=off" >>/boot/loader/entries/arch.conf
 fi
@@ -96,7 +96,7 @@ echo "initrd  /initramfs-$kernel-fallback.img
 options  root=PART$(cat /etc/fstab | grep 'UUID' | head -n 1 - | awk '{print $1}') rw rootfstype=xfs" >>/boot/loader/entries/arch-fallback.conf
 
 if [ "$gpu" == "nvidia" ]; then
-  echo "options  mitigations=off nvidia-drm.modeset=1" >>/boot/loader/entries/arch-fallback.conf
+  echo "options  mitigations=off nvidia-drm.modeset=1 nvidia_drm.fbdev=1" >>/boot/loader/entries/arch-fallback.conf
 else
   echo "options  mitigations=off" >>/boot/loader/entries/arch-fallback.conf
 fi
@@ -143,7 +143,19 @@ retry_function pacman --noconfirm -Sy xorg noto-fonts noto-fonts-cjk noto-fonts-
 
 case $gpu in
 nvidia)
-  retry_function pacman --noconfirm --needed -S lib32-libglvnd lib32-nvidia-utils lib32-vulkan-icd-loader libglvnd nvidia-dkms nvidia-settings vulkan-icd-loader
+  retry_function pacman --noconfirm --needed -S lib32-libglvnd lib32-nvidia-utils lib32-vulkan-icd-loader libglvnd nvidia-dkms nvidia-settings nvidia-utils vulkan-icd-loader
+  # Add Nvidia modules to mkinitcpio.conf
+  if ! grep -qE '^MODULES=.*nvidia.*nvidia_modeset.*nvidia_uvm.*nvidia_drm' /etc/mkinitcpio.conf; then
+    sed -Ei 's/^(MODULES=\([^\)]*)\)/\1 nvidia nvidia_modeset nvidia_uvm nvidia_drm)/' /etc/mkinitcpio.conf
+    echo "Nvidia modules added to /etc/mkinitcpio.conf"
+  fi
+  mkinitcpio -P
+
+  # Add Nvidia modprobe configuration
+  if [[ ! -f "/etc/modprobe.d/nvidia.conf" ]]; then
+    echo "options nvidia_drm modeset=1 fbdev=1" | tee /etc/modprobe.d/nvidia.conf >/dev/null
+    echo "Nvidia modprobe configuration created at /etc/modprobe.d/nvidia.conf"
+  fi
   ;;
 amd)
   retry_function pacman --noconfirm --needed -S xf86-video-amdgpu mesa lib32-mesa lib32-vulkan-icd-loader lib32-vulkan-radeon vulkan-icd-loader vulkan-radeon
