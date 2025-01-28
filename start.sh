@@ -1,5 +1,14 @@
 #!/bin/bash
 
+# Check if the system is in UEFI mode
+if [ -d /sys/firmware/efi ]; then
+  :
+else
+  # Not in UEFI mode, show error message
+  echo "Error: This system is not booted in UEFI mode. UEFI is required for this installation."
+  exit 1
+fi
+
 if [ $root ]; then
   mkfs.xfs -f $root || exit && mount $root /mnt && mkdir /mnt/boot
 else
