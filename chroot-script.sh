@@ -143,7 +143,19 @@ retry_function pacman --noconfirm -Sy xorg noto-fonts noto-fonts-cjk noto-fonts-
 
 case $gpu in
 nvidia)
-  retry_function pacman --noconfirm --needed -S lib32-libglvnd lib32-nvidia-utils lib32-vulkan-icd-loader libglvnd nvidia-dkms nvidia-settings nvidia-utils vulkan-icd-loader
+  nvidia_pkgs=(
+    nvidia-dkms nvidia-settings nvidia-utils
+    lib32-libglvnd lib32-nvidia-utils lib32-vulkan-icd-loader
+    libglvnd vulkan-icd-loader
+  )
+
+  # Install necessary NVIDIA packages and kernel headers
+  for krnl in $(cat /usr/lib/modules/*/pkgbase); do
+    for pkg in "${krnl}-headers" "${nvidia_pkgs[@]}"; do
+      retry_function pacman --noconfirm --needed -S "$pkg"
+    done
+  done
+
   # Add Nvidia modules to mkinitcpio.conf
   if ! grep -qE '^MODULES=.*nvidia.*nvidia_modeset.*nvidia_uvm.*nvidia_drm' /etc/mkinitcpio.conf; then
     sed -Ei 's/^(MODULES=\([^\)]*)\)/\1 nvidia nvidia_modeset nvidia_uvm nvidia_drm)/' /etc/mkinitcpio.conf
