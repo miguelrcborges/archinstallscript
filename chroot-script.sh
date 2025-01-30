@@ -79,7 +79,7 @@ if [ $cpu ]; then
   echo "initrd  /$cpu-ucode.img" >>/boot/loader/entries/arch.conf
 fi
 echo "initrd  /initramfs-$kernel.img
-options  root=$(cat /etc/fstab | grep 'UUID' | head -n 1 - | awk '{print $1}') rw rootfstype=xfs" >>/boot/loader/entries/arch.conf
+options  root=$(cat /etc/fstab | grep 'UUID' | head -n 1 - | awk '{print $1}') rw rootfstype=xfs quiet splash" >>/boot/loader/entries/arch.conf
 
 if [ "$gpu" == "nvidia" ]; then
   echo "options  mitigations=off nvidia-drm.modeset=1 nvidia_drm.fbdev=1" >>/boot/loader/entries/arch.conf
@@ -93,7 +93,7 @@ if [ $cpu ]; then
   echo "initrd  /$cpu-ucode.img" >>/boot/loader/entries/arch-fallback.conf
 fi
 echo "initrd  /initramfs-$kernel-fallback.img
-options  root=PART$(cat /etc/fstab | grep 'UUID' | head -n 1 - | awk '{print $1}') rw rootfstype=xfs" >>/boot/loader/entries/arch-fallback.conf
+options  root=PART$(cat /etc/fstab | grep 'UUID' | head -n 1 - | awk '{print $1}') rw rootfstype=xfs quiet splash" >>/boot/loader/entries/arch-fallback.conf
 
 if [ "$gpu" == "nvidia" ]; then
   echo "options  mitigations=off nvidia-drm.modeset=1 nvidia_drm.fbdev=1" >>/boot/loader/entries/arch-fallback.conf
